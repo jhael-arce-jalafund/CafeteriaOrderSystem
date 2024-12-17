@@ -1,0 +1,104 @@
+@startuml
+
+package com.example.demo.domain.entities {
+    class Order {
+        - UUID id
+        - String customerName
+        - List<String> items
+        - double totalPrice
+        - OrderStatus status
+        + Order(UUID id, String customerName, List<String> items, double totalPrice, OrderStatus status)
+    }
+
+    enum OrderStatus {
+        PENDING
+        FULFILLED
+    }
+}
+
+package com.example.demo.domain.exception {
+    class OrderNotFoundException {
+        + OrderNotFoundException(String message)
+    }
+}
+
+package com.example.demo.dto {
+    class CreateOrderDTO {
+        - String customerName
+        - List<String> items
+        - BigDecimal totalPrice
+        + CreateOrderDTO(String customerName, List<String> items, BigDecimal totalPrice)
+    }
+
+    class OrderDTO {
+        - String customerName
+        - List<String> items
+        - double totalPrice
+        - OrderStatus status
+        + OrderDTO(String customerName, List<String> items, double totalPrice, OrderStatus status)
+    }
+}
+
+package com.example.demo.infrastructure {
+    interface IOrderRepository {
+        + Order save(Order order)
+        + List<Order> findAll()
+        + Optional<Order> findById(UUID id)
+        + Order update(UUID id, Order order)
+        + void delete(UUID id)
+    }
+
+    class OrderRepository {
+        - List<Order> orders
+        + Order save(Order order)
+        + List<Order> findAll()
+        + Optional<Order> findById(UUID id)
+        + Order update(UUID id, Order order)
+        + void delete(UUID id)
+    }
+}
+
+package com.example.demo.services {
+    interface IOrderService {
+        + Order createOrder(Order order)
+        + List<Order> getAllOrders()
+        + Optional<Order> getOrderById(UUID id)
+        + Order updateOrder(UUID id, Order order)
+        + void deleteOrder(UUID id)
+    }
+
+    class OrderService {
+        - IOrderRepository orderRepository
+        + Order createOrder(Order order)
+        + List<Order> getAllOrders()
+        + Optional<Order> getOrderById(UUID id)
+        + Order updateOrder(UUID id, Order order)
+        + void deleteOrder(UUID id)
+    }
+
+    class OrderValidator {
+        + void validate(CreateOrderDTO createOrderDTO)
+    }
+}
+
+package com.example.demo {
+    class OrderController {
+        - OrderService orderService
+        + createOrder(OrderDTO orderDTO): ResponseEntity<Order>
+        + getAllOrders(): ResponseEntity<List<Order>>
+        + getOrderById(UUID id): ResponseEntity<Order>
+        + updateOrder(UUID id, OrderDTO orderDTO): ResponseEntity<Order>
+        + deleteOrder(UUID id): ResponseEntity<Void>
+    }
+}
+
+OrderRepository --> IOrderRepository
+OrderService --> IOrderService
+OrderController --> OrderService
+OrderService --> OrderRepository
+OrderValidator ..> CreateOrderDTO : validates
+Order --> OrderStatus
+OrderDTO --> Order
+OrderDTO --> OrderStatus
+
+@enduml
