@@ -25,4 +25,12 @@ export const addOrder = async (newOrder) => {
     status: "PENDING",
   });
   return response.data;
-}
+};
+
+export const getOrderById = async (id) => {
+  const response = await axios.get(`/orders/${id}`);
+  return response.data;
+};
+
+
+

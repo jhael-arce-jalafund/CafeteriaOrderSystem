@@ -1,11 +1,12 @@
 import React from "react";
-import "./style/OrderRow.css";
+import "../style/OrderRow.css";
 import apiClient from "../api/axiosConfig";
+import Button from "./Button"; 
 
 const OrderRow = ({ order }) => {
   const handleDelete = async () => {
     try {
-      await apiClient.delete(`/${order.id}`);
+      await apiClient.delete(`/orders/${order.id}`);
       alert("Order deleted successfully");
       window.location.reload(); 
     } catch (error) {
@@ -22,7 +23,7 @@ const OrderRow = ({ order }) => {
     };
 
     try {
-      await apiClient.put(`/${order.id}`, updatedOrder);
+      await apiClient.put(`/orders/${order.id}`, updatedOrder);
       alert("Order updated successfully");
       window.location.reload(); 
     } catch (error) {
@@ -38,12 +39,8 @@ const OrderRow = ({ order }) => {
       <td>{order.status}</td>
 
       <td>
-        <button onClick={handleUpdate} className="btn update">
-          Update Status
-        </button>
-        <button onClick={handleDelete} className="btn delete">
-          Delete
-        </button>
+      <Button type="update" onClick={handleUpdate} />
+      <Button type="delete" onClick={handleDelete} />
       </td>
     </tr>
   );

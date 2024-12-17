@@ -1,9 +1,14 @@
 .app-container {
   text-align: center;
   font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-.add-employee-btn {
+h1 {
+  margin-bottom: 20px;
+}
+
+.add-order-btn {
   background-color: #007bff;
   color: white;
   border: none;
@@ -12,8 +17,17 @@
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
+  display: inline-block;
+  text-align: left;
+  margin-left: 20px; /* Alineación a la izquierda */
 }
 
-.add-employee-btn:hover {
+.add-order-btn:hover {
   background-color: #0056b3;
 }
+
+.order-table-container {
+  width: 80%;
+  margin: 20px auto;
+}
+

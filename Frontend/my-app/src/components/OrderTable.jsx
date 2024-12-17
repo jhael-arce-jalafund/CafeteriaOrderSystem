@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style/OrderTable.css";
+import "../style/OrderTable.css";
 import OrderRow from "./OrderRow";
 import apiClient from "../api/axiosConfig"; 
 
@@ -9,14 +9,27 @@ const OrderTable = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await apiClient.get(""); 
+      const response = await apiClient.get("/orders"); 
       setOrders(response.data); 
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching orders:", error);
       setLoading(false);
     }
   };
+
+  const fetchOrderById = async (id) => {
+    setLoading(true);
+    try {
+      const order = await apiClient.get("/orders/"); ;
+      setOrders([order]); 
+      setLoading(false);
+    } catch (error) {
+      alert("Order not found");
+      setOrders([]); 
+      setLoading(false);
+    }
+  };
+  
 
   useEffect(() => {
     fetchOrders(); 
@@ -25,7 +38,7 @@ const OrderTable = () => {
   return (
     <div>
       <h2>Orders</h2>
-      <table className="employee-table">
+      <table className="order-table">
         <thead>
           <tr>
             <th>Customer Name</th>

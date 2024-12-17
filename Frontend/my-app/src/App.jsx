@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
 import OrderTable from "./components/OrderTable";
+import Header from "./components/Header"; 
 import OrderModal from "./components/OrderModal"; 
-import { addOrder } from "./api/axiosConfig"; 
+
+import { addOrder } from "./request/OrderRequest"
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleAddOrder = () => {
     setIsModalOpen(true); 
@@ -15,22 +18,26 @@ const App = () => {
     setIsModalOpen(false); 
   };
 
-  const handleSaveOrder = async (newEmployee) => {
+  const handleSaveOrder = async (newOrder) => {
     try {
-      await addOrder(newEmployee); 
+      const savedOrder = await addOrder(newOrder); 
       setIsModalOpen(false); 
+      alert("Order added successfully");
     } catch (error) {
       console.error("Error saving order:", error);
+      alert("Error saving order");
     }
   };
 
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+
   return (
     <div className="app-container">
-      <h1>List Orders</h1>
-      <button className="add-employee-btn" onClick={handleAddOrder}>
-        Add Order
-      </button>
-      <OrderTable />
+      <Header onSearch={handleSearch} onAddOrder={handleAddOrder} />
+      <OrderTable searchTerm={searchTerm} />
       {isModalOpen && (
         <OrderModal
           onClose={handleCloseModal}

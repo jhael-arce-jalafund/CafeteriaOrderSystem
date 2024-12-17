@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./style/OrderModal.css";
+import "../style/OrderModal.css";
 
 const OrderModal = ({ onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const OrderModal = ({ onClose, onSave }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    onSave(formData); 
   };
 
   return (
