@@ -1,0 +1,26 @@
+.btn {
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .btn.update {
+    background-color: #17a2b8;
+  }
+  
+  .btn.update:hover {
+    background-color: #138496;
+  }
+  
+  .btn.delete {
+    background-color: #dc3545;
+  }
+  
+  .btn.delete:hover {
+    background-color: #bd2130;
+  }
+  

@@ -1,0 +1,19 @@
+.app-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.add-employee-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.add-employee-btn:hover {
+  background-color: #0056b3;
+}
