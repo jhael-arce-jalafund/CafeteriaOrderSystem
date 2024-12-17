@@ -20,19 +20,16 @@ const App = () => {
 
   const handleSaveOrder = async (newOrder) => {
     try {
-      const savedOrder = await addOrder(newOrder); 
+      await addOrder(newOrder); 
       setIsModalOpen(false); 
-      alert("Order added successfully");
     } catch (error) {
       console.error("Error saving order:", error);
-      alert("Error saving order");
     }
   };
 
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
-
 
   return (
     <div className="app-container">
